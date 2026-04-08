@@ -5,28 +5,60 @@ import java.util.Scanner;
 
 public class FileSeparator {
     public static void main(String[] args) {
-        // Step 1: Read from numbers.txt and separate into even.txt and odd.txt
-        // Hint: Use Scanner to read from the file and PrintWriter to write to files.
+
         try {
-            // TODO: Initialize Scanner for numbers.txt
-            // TODO: Initialize PrintWriter for even.txt and odd.txt
-            
-            // TODO: Loop through the input file, check if numbers are even or odd, and write to respective files
-            
-            // TODO: Close all resources (Scanner and both PrintWriters) to save the files properly
-            
+            // Initialize Scanner to read numbers.txt
+            Scanner input = new Scanner(new File("numbers.txt"));
+
+            // Initialize PrintWriters for even.txt and odd.txt
+            PrintWriter evenWriter = new PrintWriter("even.txt");
+            PrintWriter oddWriter = new PrintWriter("odd.txt");
+
+            // Separate numbers
+            while (input.hasNextInt()) {
+                int num = input.nextInt();
+
+                if (num % 2 == 0) {
+                    evenWriter.print(num + " ");
+                } else {
+                    oddWriter.print(num + " ");
+                }
+            }
+
+            // Close resources (VERY IMPORTANT)
+            input.close();
+            evenWriter.close();
+            oddWriter.close();
+
         } catch (FileNotFoundException e) {
             System.out.println("Error processing files.");
+            return;
         }
 
-        // Step 2: Read and display even.txt
+        // Display even.txt
         System.out.print("Even File: ");
-        // TODO: Read even.txt and print its contents on a single line
+        try {
+            Scanner evenReader = new Scanner(new File("even.txt"));
+            while (evenReader.hasNext()) {
+                System.out.print(evenReader.next() + " ");
+            }
+            evenReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.print("");
+        }
         System.out.println();
 
-        // Step 3: Read and display odd.txt
+        // Display odd.txt
         System.out.print("Odd File: ");
-        // TODO: Read odd.txt and print its contents on a single line
+        try {
+            Scanner oddReader = new Scanner(new File("odd.txt"));
+            while (oddReader.hasNext()) {
+                System.out.print(oddReader.next() + " ");
+            }
+            oddReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.print("");
+        }
         System.out.println();
     }
 }
